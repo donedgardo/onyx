@@ -3,13 +3,20 @@
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">1048576</s:Int64>
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8faf6f33_002D029e_002D4a92_002D933d_002Ddd2cb9f9c7a7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="MyCategoriesHere #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a608a67f_002D2f5f_002D47cc_002Da8e0_002D5815c4f18b17/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Dice" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;And&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;Not&gt;&#xD;
+      &lt;And&gt;&#xD;
+        &lt;TestAncestor&gt;&#xD;
+          &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.Roll('1d1').should roll 1&lt;/TestId&gt;&#xD;
+        &lt;/TestAncestor&gt;&#xD;
+        &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
+        &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
+      &lt;/And&gt;&#xD;
+    &lt;/Not&gt;&#xD;
+  &lt;/And&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
