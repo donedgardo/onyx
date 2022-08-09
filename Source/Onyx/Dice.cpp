@@ -1,6 +1,6 @@
 #include "Dice.h"
 
-bool IsValidDiceCount(const int dice_count)
+bool IsInvalidDiceCount(const int dice_count)
 {
 	return dice_count <= 0 || dice_count >= 10;
 }
@@ -13,7 +13,7 @@ void HandleInvalidDiceCount()
 int Roll(FString n)
 {
 	const int DiceCount = n[0] - '0';
-	if (IsValidDiceCount(DiceCount))
+	if (IsInvalidDiceCount(DiceCount))
 	{
 		HandleInvalidDiceCount();
 	}
