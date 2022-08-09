@@ -1,3 +1,3 @@
 #pragma once
 
-int Roll(char n[3]);
+int Roll(FString n);
