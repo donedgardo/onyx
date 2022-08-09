@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-          label 'master'
+          label 'Built-In Node'
           customWorkspace "C:\\OnyxWorkspace"//use backward slashes to avoid problems with how Windows uses directories!!
         }
     }
