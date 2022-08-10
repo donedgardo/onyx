@@ -1,3 +1,3 @@
 #pragma once
 
-int Roll(FString n);
+int Roll(FString RollInput);

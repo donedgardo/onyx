@@ -5,11 +5,31 @@ DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutoma
 
 void DiceSpec::Define()
 {
-	Describe("A valid roll", [this]()
+	Describe("Rolling one dice of one side", [this]()
 	{
-		It("should return possible range", [this]()
+		Describe("of one sides", [this]()
 		{
-			TestTrue("1", Roll("1d1") == 1);
+			It("should roll 1", [this]()
+			{
+				TestTrue("1", Roll("1d1") == 1);
+			});
+		});
+		Describe("of two sides", [this]()
+		{
+			It("should roll between 1 and 2", [this]()
+			{
+				int roll = Roll("1d2");
+				TestTrue("Min", roll >= 1);
+				TestTrue("Max", roll <= 2);
+			});
+		});
+	});
+
+	Describe("Rolling two dice of one side", [this]()
+	{
+		It("should roll 2", [this]()
+		{
+			TestTrue("2", Roll("2d1") == 2);
 		});
 	});
 
@@ -17,15 +37,23 @@ void DiceSpec::Define()
 	{
 		It("should return exception", [this]()
 		{
-			FString invalidInput = "cd1";
-			try
+			TArray<FString> InvalidInputs;
+			InvalidInputs.Emplace("cd1");
+			InvalidInputs.Emplace("0d1");
+			InvalidInputs.Emplace("1d0");
+			InvalidInputs.Emplace("111");
+			for (const auto& InvalidInput : InvalidInputs)
 			{
-				Roll(invalidInput);
-			}
-			catch (FString error)
-			{
-				FString expectedError = "Roll " + invalidInput + " is not valid.";
-				TestEqual("Expected Error", error, expectedError);
+				try
+				{
+					Roll(InvalidInput);
+					TestTrue("Should throw", false);
+				}
+				catch (FString error)
+				{
+					FString expectedError = "Roll " + InvalidInput + " is not valid.";
+					TestEqual("Expected Error", error, expectedError);
+				}
 			}
 		});
 	});

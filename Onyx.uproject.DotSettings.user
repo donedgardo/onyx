@@ -1,22 +1,53 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe</s:String>
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">1048576</s:Int64>
-	
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a608a67f_002D2f5f_002D47cc_002Da8e0_002D5815c4f18b17/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Dice" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=481cfa84_002Da2e4_002D4aab_002D9988_002Dd148d7481e32/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;And&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
     &lt;Not&gt;&#xD;
-      &lt;And&gt;&#xD;
-        &lt;TestAncestor&gt;&#xD;
-          &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.Roll('1d1').should roll 1&lt;/TestId&gt;&#xD;
-        &lt;/TestAncestor&gt;&#xD;
-        &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
-        &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
-      &lt;/And&gt;&#xD;
+      &lt;Or&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;TestAncestor&gt;&#xD;
+            &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.Rolling one dice of one side.should roll 1&lt;/TestId&gt;&#xD;
+          &lt;/TestAncestor&gt;&#xD;
+          &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
+          &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
+        &lt;/And&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;TestAncestor&gt;&#xD;
+            &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.Roll('1d1').should roll 1&lt;/TestId&gt;&#xD;
+          &lt;/TestAncestor&gt;&#xD;
+          &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
+          &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
+        &lt;/And&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;TestAncestor&gt;&#xD;
+            &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.A valid roll.should return possible range&lt;/TestId&gt;&#xD;
+          &lt;/TestAncestor&gt;&#xD;
+          &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
+          &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
+        &lt;/And&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;TestAncestor&gt;&#xD;
+            &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.2dx.2d1&lt;/TestId&gt;&#xD;
+          &lt;/TestAncestor&gt;&#xD;
+          &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
+          &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
+        &lt;/And&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;TestAncestor&gt;&#xD;
+            &lt;TestId&gt;UnrealTest::DE784321-93CB-6EAF-B27F-10ACD4FA2A83::::Onyx.Dice.1dx.1d1&lt;/TestId&gt;&#xD;
+          &lt;/TestAncestor&gt;&#xD;
+          &lt;Project Location="C:\Users\ssjva\Documents\Unreal Projects\Onyx\Source\Onyx" Presentation="&amp;lt;Onyx&amp;gt;\&amp;lt;Source&amp;gt;\&amp;lt;Onyx&amp;gt;" /&gt;&#xD;
+          &lt;Namespace&gt;Onyx&lt;/Namespace&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Or&gt;&#xD;
     &lt;/Not&gt;&#xD;
   &lt;/And&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	</wpf:ResourceDictionary>

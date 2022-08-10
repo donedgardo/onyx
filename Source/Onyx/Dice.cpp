@@ -1,21 +1,47 @@
 #include "Dice.h"
 
-bool IsInvalidDiceCount(const int dice_count)
+#include <string>
+
+bool IsInvalidDiceCount(const int DiceCount)
 {
-	return dice_count <= 0 || dice_count >= 10;
+	return DiceCount <= 0 || DiceCount >= 10;
 }
 
-void HandleInvalidDiceCount()
+bool IsInvalidSideCount(const int SideCount)
 {
-	throw FString("Roll cd1 is not valid.");
+	return SideCount <= 0 || SideCount >= 10;
 }
 
-int Roll(FString n)
+void HandleInvalidDiceCount(FString input)
 {
-	const int DiceCount = n[0] - '0';
-	if (IsInvalidDiceCount(DiceCount))
+	throw FString("Roll " + input + " is not valid.");
+}
+
+int RandomNonZeroNumber(const int InclusiveMax)
+{
+	srand(time(NULL));
+	return rand() % InclusiveMax + 1;
+}
+
+int Roll(FString RollInput)
+{
+	TArray<FString> DiceAndSide;
+	RollInput.ParseIntoArray(DiceAndSide, TEXT("d"), true);
+	if (DiceAndSide.Num() != 2)
 	{
-		HandleInvalidDiceCount();
+		HandleInvalidDiceCount(RollInput);
 	}
-	return DiceCount;
+	const int DiceCount = FCString::Atoi(*DiceAndSide[0]);
+	const int SideCount = FCString::Atoi(*DiceAndSide[1]);
+	if (IsInvalidDiceCount(DiceCount) || IsInvalidSideCount(SideCount))
+	{
+		HandleInvalidDiceCount(RollInput);
+	}
+
+	int roll = 0;
+	for (int i = 0; i < DiceCount; ++i)
+	{
+		roll += RandomNonZeroNumber(SideCount);
+	}
+	return roll;
 }
