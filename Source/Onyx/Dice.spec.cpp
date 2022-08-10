@@ -13,14 +13,19 @@ void DiceSpec::Define()
 {
 	Describe("Roll", [this]()
 	{
-		It("should return minimum amount", [this]()
-		{
-			TestTrue("1", Roll("1d1") == 1);
-			TestTrue("2", Roll("2d1") == 2);
-		});
 		It("should return right range", [this]()
 		{
 			TArray<FRollRangeTestCase> RollRangeTestCases;
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"1d1",
+				1,
+				1,
+			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"2d1",
+				2,
+				2,
+			});
 			RollRangeTestCases.Emplace(FRollRangeTestCase{
 				"1d2",
 				1,
