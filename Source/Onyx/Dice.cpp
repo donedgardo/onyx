@@ -21,13 +21,13 @@ int RandomNonZeroNumber(const int InclusiveMax)
 	return rand() % InclusiveMax + 1;
 }
 
-struct FRoll
+struct FRollInput
 {
 	int Dice;
 	int Side;
 };
 
-FRoll GetDiceAndSideCount(FString RollInput)
+FRollInput GetRollInput(FString RollInput)
 {
 	TArray<FString> DiceAndSide;
 	RollInput.ParseIntoArray(DiceAndSide, TEXT("d"), true);
@@ -35,24 +35,25 @@ FRoll GetDiceAndSideCount(FString RollInput)
 	{
 		HandleInvalidRollInput(RollInput);
 	}
-	return FRoll{
-		FCString::Atoi(*DiceAndSide[0]),
-		FCString::Atoi(*DiceAndSide[1])
-	};
-}
-
-int Roll(FString RollInput)
-{
-	FRoll rollInput = GetDiceAndSideCount(RollInput);
-	if (IsInvalidDiceCount(rollInput.Dice) || IsInvalidSideCount(rollInput.Side))
+	int DiceQty = FCString::Atoi(*DiceAndSide[0]);
+	int SideQty = FCString::Atoi(*DiceAndSide[1]);
+	if (IsInvalidDiceCount(DiceQty) || IsInvalidSideCount(SideQty))
 	{
 		HandleInvalidRollInput(RollInput);
 	}
+	return FRollInput{
+		DiceQty,
+		SideQty
+	};
+}
 
-	int roll = 0;
-	for (int i = 0; i < rollInput.Dice; ++i)
+int Roll(const FString Input)
+{
+	const auto [Dice, Side] = GetRollInput(Input);
+	int RollAmount = 0;
+	for (int i = 0; i < Dice; ++i)
 	{
-		roll += RandomNonZeroNumber(rollInput.Side);
+		RollAmount += RandomNonZeroNumber(Side);
 	}
-	return roll;
+	return RollAmount;
 }

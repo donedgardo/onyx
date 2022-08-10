@@ -71,6 +71,7 @@ void DiceSpec::Define()
 			InvalidInputs.Emplace("111");
 			InvalidInputs.Emplace("aaa");
 			InvalidInputs.Emplace("-1d10");
+			InvalidInputs.Emplace("1d-10");
 			for (const auto& InvalidInput : InvalidInputs)
 			{
 				try
