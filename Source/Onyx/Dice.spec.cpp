@@ -5,31 +5,18 @@ DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutoma
 
 void DiceSpec::Define()
 {
-	Describe("Rolling one dice of one side", [this]()
+	Describe("Roll", [this]()
 	{
-		Describe("of one sides", [this]()
+		It("should return minimum amount", [this]()
 		{
-			It("should roll 1", [this]()
-			{
-				TestTrue("1", Roll("1d1") == 1);
-			});
-		});
-		Describe("of two sides", [this]()
-		{
-			It("should roll between 1 and 2", [this]()
-			{
-				int roll = Roll("1d2");
-				TestTrue("Min", roll >= 1);
-				TestTrue("Max", roll <= 2);
-			});
-		});
-	});
-
-	Describe("Rolling two dice of one side", [this]()
-	{
-		It("should roll 2", [this]()
-		{
+			TestTrue("1", Roll("1d1") == 1);
 			TestTrue("2", Roll("2d1") == 2);
+		});
+		It("should return right range", [this]()
+		{
+			int roll = Roll("1d2");
+			TestTrue("Min", roll >= 1);
+			TestTrue("Max", roll <= 2);
 		});
 	});
 
@@ -42,6 +29,7 @@ void DiceSpec::Define()
 			InvalidInputs.Emplace("0d1");
 			InvalidInputs.Emplace("1d0");
 			InvalidInputs.Emplace("111");
+			InvalidInputs.Emplace("aaa");
 			for (const auto& InvalidInput : InvalidInputs)
 			{
 				try
