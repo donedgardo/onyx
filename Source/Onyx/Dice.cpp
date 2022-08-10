@@ -2,12 +2,12 @@
 
 bool IsInvalidDiceCount(const int DiceCount)
 {
-	return DiceCount <= 0 || DiceCount >= 10;
+	return DiceCount <= 0;
 }
 
 bool IsInvalidSideCount(const int SideCount)
 {
-	return SideCount <= 0 || SideCount >= 10;
+	return SideCount <= 0;
 }
 
 void HandleInvalidRollInput(FString input)

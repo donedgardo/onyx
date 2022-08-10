@@ -2,6 +2,13 @@
 
 DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 
+struct FRollRangeTestCase
+{
+	FString Input;
+	int Min;
+	int Max;
+};
+
 void DiceSpec::Define()
 {
 	Describe("Roll", [this]()
@@ -13,17 +20,38 @@ void DiceSpec::Define()
 		});
 		It("should return right range", [this]()
 		{
-			int roll = Roll("1d2");
-			TestTrue("Min", roll >= 1);
-			TestTrue("Max", roll <= 2);
-			roll = Roll("2d2");
-			//UE_LOG(LogTemp, Warning, TEXT("Rolled %d"), roll);
-			TestTrue("Min", roll >= 2);
-			TestTrue("Max", roll <= 4);
-			roll = Roll("4d4");
-			UE_LOG(LogTemp, Warning, TEXT("Rolled %d"), roll);
-			TestTrue("Min", roll >= 4);
-			TestTrue("Max", roll <= 16);
+			TArray<FRollRangeTestCase> RollRangeTestCases;
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"1d2",
+				1,
+				2
+			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"2d2",
+				2,
+				4
+			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"4d4",
+				4,
+				16
+			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"5d9",
+				5,
+				45
+			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				"10d10",
+				10,
+				100
+			});
+			for (auto RollTestCase : RollRangeTestCases)
+			{
+				int roll = Roll(RollTestCase.Input);
+				TestTrue("Min", roll >= RollTestCase.Min);
+				TestTrue("Max", roll <= RollTestCase.Max);
+			}
 		});
 	});
 
@@ -37,6 +65,7 @@ void DiceSpec::Define()
 			InvalidInputs.Emplace("1d0");
 			InvalidInputs.Emplace("111");
 			InvalidInputs.Emplace("aaa");
+			InvalidInputs.Emplace("-1d10");
 			for (const auto& InvalidInput : InvalidInputs)
 			{
 				try
