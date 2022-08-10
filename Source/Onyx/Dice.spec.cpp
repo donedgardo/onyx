@@ -1,4 +1,3 @@
-#include "Misc/AutomationTest.h"
 #include <Onyx/Dice.h>
 
 DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
@@ -17,6 +16,14 @@ void DiceSpec::Define()
 			int roll = Roll("1d2");
 			TestTrue("Min", roll >= 1);
 			TestTrue("Max", roll <= 2);
+			roll = Roll("2d2");
+			//UE_LOG(LogTemp, Warning, TEXT("Rolled %d"), roll);
+			TestTrue("Min", roll >= 2);
+			TestTrue("Max", roll <= 4);
+			roll = Roll("4d4");
+			UE_LOG(LogTemp, Warning, TEXT("Rolled %d"), roll);
+			TestTrue("Min", roll >= 4);
+			TestTrue("Max", roll <= 16);
 		});
 	});
 
