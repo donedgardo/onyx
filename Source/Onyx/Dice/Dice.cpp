@@ -1,25 +1,25 @@
 #include "Dice.h"
 
-Dice::Dice(int i)
+Dice::Dice(const int SideQty)
 {
-	Sides = i;
+	Sides = SideQty;
 }
 
-int Dice::Roll()
+int Dice::Roll() const
 {
-	return Sides;
+	srand(time(nullptr));
+	return rand() % Sides + 1;
 }
 
-FRollManyOutput Dice::RollMany(const FString Input)
+FRollManyOutput Dice::RollMany(const FString RawInput)
 {
-	Dice d = Dice(0);
-	d.RawInput = Input;
-	d.SetRollInput();
+	const auto [DiceQty, SideQty] = GetRollInput(RawInput);
 	int RollSum = 0;
 	TArray<int> Rolls;
-	for (int i = 0; i < d.RollInput.DiceQty; ++i)
+	for (int i = 0; i < DiceQty; ++i)
 	{
-		int Roll = d.GetRandomDiceSide();
+	    Dice d = Dice(SideQty);
+		int Roll = d.Roll();
 		Rolls.Emplace(Roll);
 		RollSum += Roll;
 	}
@@ -29,41 +29,31 @@ FRollManyOutput Dice::RollMany(const FString Input)
 	};
 }
 
-bool Dice::IsInvalidDiceCount() const
+bool Dice::IsInvalidRollInput(FRollManyInput RollInput)
 {
-	return RollInput.DiceQty <= 0;
+	return RollInput.DiceQty <= 0 || RollInput.SideQty <= 0;
 }
 
-bool Dice::IsInvalidSideCount() const
-{
-	return RollInput.SideQty <= 0;
-}
-
-void Dice::HandleInvalidRollInput() const
+void Dice::HandleInvalidRollInput(FString RawInput)
 {
 	throw FString("Roll " + RawInput + " is not valid.");
 }
 
-int Dice::GetRandomDiceSide() const
-{
-	srand(time(NULL));
-	return rand() % RollInput.SideQty + 1;
-}
-
-void Dice::SetRollInput()
+FRollManyInput Dice::GetRollInput(FString RawInput)
 {
 	TArray<FString> DiceAndSide;
 	RawInput.ParseIntoArray(DiceAndSide, TEXT("d"), true);
 	if (DiceAndSide.Num() != 2)
 	{
-		HandleInvalidRollInput();
+		HandleInvalidRollInput(RawInput);
 	}
-	RollInput = FRollManyInput{
+	const FRollManyInput RollInput = FRollManyInput{
 		FCString::Atoi(*DiceAndSide[0]),
 		FCString::Atoi(*DiceAndSide[1])
 	};
-	if (IsInvalidDiceCount() || IsInvalidSideCount())
+	if (IsInvalidRollInput(RollInput))
 	{
-		HandleInvalidRollInput();
+		HandleInvalidRollInput(RawInput);
 	}
+	return RollInput;
 }

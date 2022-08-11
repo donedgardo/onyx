@@ -16,17 +16,13 @@ struct FRollManyOutput
 class Dice
 {
 public:
-	Dice(int i);
-	static FRollManyOutput RollMany(const FString Input);
-	int Roll();
+	Dice(int SideQty);
+	int Roll() const;
+	static FRollManyOutput RollMany(const FString RawInput);
 private:
-	FString RawInput;
-	FRollManyInput RollInput;
 	int Sides;
-	bool IsInvalidDiceCount() const;
-	bool IsInvalidSideCount() const;
-	void HandleInvalidRollInput() const;
-	int GetRandomDiceSide() const;
-	void SetRollInput();
+	static bool IsInvalidRollInput(FRollManyInput RollInput);
+	static void HandleInvalidRollInput(FString RawInput);
+	static FRollManyInput GetRollInput(FString RawInput);
 };
 

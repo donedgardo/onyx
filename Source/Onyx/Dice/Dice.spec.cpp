@@ -105,6 +105,16 @@ void DiceSpec::Define()
 				1,
 				1,
 			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				10,
+				1,
+				10,
+			});
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				20,
+				1,
+				20,
+			});
 			for (auto RollRangeTestCase : RollRangeTestCases)
 			{
 				Dice d = Dice(RollRangeTestCase.Input);
