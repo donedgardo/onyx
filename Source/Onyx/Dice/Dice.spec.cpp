@@ -2,65 +2,72 @@
 
 DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 
-struct FRollRangeTestCase
+struct FRollManyRangeTestCase
 {
 	FString Input;
 	int Min;
 	int Max;
 };
 
+struct FRollRangeTestCase
+{
+	int Input;
+	int Min;
+	int Max;
+};
+
 void DiceSpec::Define()
 {
-	Describe("Roll", [this]()
+	Describe("RollMany", [this]()
 	{
 		It("should return right range", [this]()
 		{
-			TArray<FRollRangeTestCase> RollRangeTestCases;
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			TArray<FRollManyRangeTestCase> RollRangeTestCases;
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"1d1",
 				1,
 				1,
 			});
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"2d1",
 				2,
 				2,
 			});
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"1d2",
 				1,
 				2
 			});
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"2d2",
 				2,
 				4
 			});
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"4d4",
 				4,
 				16
 			});
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"5d9",
 				5,
 				45
 			});
-			RollRangeTestCases.Emplace(FRollRangeTestCase{
+			RollRangeTestCases.Emplace(FRollManyRangeTestCase{
 				"10d10",
 				10,
 				100
 			});
 			for (auto RollTestCase : RollRangeTestCases)
 			{
-				int roll = Dice().Roll(RollTestCase.Input);
-				TestTrue("Min", roll >= RollTestCase.Min);
-				TestTrue("Max", roll <= RollTestCase.Max);
+				const auto [Rolls, Result] = Dice::RollMany(RollTestCase.Input);
+				TestTrue("Min", Result >= RollTestCase.Min);
+				TestTrue("Max", Result <= RollTestCase.Max);
 			}
 		});
 	});
 
-	Describe("An invalid roll input", [this]()
+	Describe("RollMany with an invalid roll input", [this]()
 	{
 		It("should return exception", [this]()
 		{
@@ -76,7 +83,7 @@ void DiceSpec::Define()
 			{
 				try
 				{
-					Dice().Roll(InvalidInput);
+					Dice::RollMany(InvalidInput);
 					TestTrue("Should throw exception", false);
 				}
 				catch (FString error)
@@ -84,6 +91,26 @@ void DiceSpec::Define()
 					FString expectedError = "Roll " + InvalidInput + " is not valid.";
 					TestEqual("Expected Error", error, expectedError);
 				}
+			}
+		});
+	});
+
+	Describe("Roll", [this]()
+	{
+		It("should return correct range", [this]()
+		{
+			TArray<FRollRangeTestCase> RollRangeTestCases;
+			RollRangeTestCases.Emplace(FRollRangeTestCase{
+				1,
+				1,
+				1,
+			});
+			for (auto RollRangeTestCase : RollRangeTestCases)
+			{
+				Dice d = Dice(RollRangeTestCase.Input);
+				int roll = d.Roll();
+				TestTrue("Min", roll >= RollRangeTestCase.Min);
+				TestTrue("Max", roll <= RollRangeTestCase.Max);
 			}
 		});
 	});

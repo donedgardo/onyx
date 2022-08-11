@@ -1,18 +1,28 @@
 #pragma once
 
-struct FRollInput
+struct FRollManyInput
 {
-	int Dice;
-	int Side;
+	int DiceQty;
+	int SideQty;
+};
+
+struct FRollManyOutput
+{
+	TArray<int> Rolls;
+	int Result;
+	
 };
 
 class Dice
 {
 public:
-	int Roll(const FString Input);
+	Dice(int i);
+	static FRollManyOutput RollMany(const FString Input);
+	int Roll();
 private:
 	FString RawInput;
-	FRollInput RollInput;
+	FRollManyInput RollInput;
+	int Sides;
 	bool IsInvalidDiceCount() const;
 	bool IsInvalidSideCount() const;
 	void HandleInvalidRollInput() const;

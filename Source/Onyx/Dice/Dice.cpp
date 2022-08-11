@@ -1,26 +1,42 @@
 #include "Dice.h"
 
-
-int Dice::Roll(const FString Input)
+Dice::Dice(int i)
 {
-	RawInput = Input;
-	SetRollInput();
-	int RollAmount = 0;
-	for (int i = 0; i < RollInput.Dice; ++i)
+	Sides = i;
+}
+
+int Dice::Roll()
+{
+	return Sides;
+}
+
+FRollManyOutput Dice::RollMany(const FString Input)
+{
+	Dice d = Dice(0);
+	d.RawInput = Input;
+	d.SetRollInput();
+	int RollSum = 0;
+	TArray<int> Rolls;
+	for (int i = 0; i < d.RollInput.DiceQty; ++i)
 	{
-		RollAmount += GetRandomDiceSide();
+		int Roll = d.GetRandomDiceSide();
+		Rolls.Emplace(Roll);
+		RollSum += Roll;
 	}
-	return RollAmount;
+	return FRollManyOutput{
+		Rolls,
+		RollSum
+	};
 }
 
 bool Dice::IsInvalidDiceCount() const
 {
-	return RollInput.Dice <= 0;
+	return RollInput.DiceQty <= 0;
 }
 
 bool Dice::IsInvalidSideCount() const
 {
-	return RollInput.Side <= 0;
+	return RollInput.SideQty <= 0;
 }
 
 void Dice::HandleInvalidRollInput() const
@@ -31,7 +47,7 @@ void Dice::HandleInvalidRollInput() const
 int Dice::GetRandomDiceSide() const
 {
 	srand(time(NULL));
-	return rand() % RollInput.Side + 1;
+	return rand() % RollInput.SideQty + 1;
 }
 
 void Dice::SetRollInput()
@@ -42,7 +58,7 @@ void Dice::SetRollInput()
 	{
 		HandleInvalidRollInput();
 	}
-	RollInput = FRollInput{
+	RollInput = FRollManyInput{
 		FCString::Atoi(*DiceAndSide[0]),
 		FCString::Atoi(*DiceAndSide[1])
 	};
