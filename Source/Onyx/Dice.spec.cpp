@@ -53,7 +53,7 @@ void DiceSpec::Define()
 			});
 			for (auto RollTestCase : RollRangeTestCases)
 			{
-				int roll = Roll(RollTestCase.Input);
+				int roll = Dice().Roll(RollTestCase.Input);
 				TestTrue("Min", roll >= RollTestCase.Min);
 				TestTrue("Max", roll <= RollTestCase.Max);
 			}
@@ -76,8 +76,8 @@ void DiceSpec::Define()
 			{
 				try
 				{
-					Roll(InvalidInput);
-					TestTrue("Should throw", false);
+					Dice().Roll(InvalidInput);
+					TestTrue("Should throw exception", false);
 				}
 				catch (FString error)
 				{

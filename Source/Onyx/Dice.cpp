@@ -1,59 +1,52 @@
 #include "Dice.h"
 
-bool IsInvalidDiceCount(const int DiceCount)
+int Dice::Roll(const FString Input)
 {
-	return DiceCount <= 0;
-}
-
-bool IsInvalidSideCount(const int SideCount)
-{
-	return SideCount <= 0;
-}
-
-void HandleInvalidRollInput(FString input)
-{
-	throw FString("Roll " + input + " is not valid.");
-}
-
-int RandomNonZeroNumber(const int InclusiveMax)
-{
-	srand(time(NULL));
-	return rand() % InclusiveMax + 1;
-}
-
-struct FRollInput
-{
-	int Dice;
-	int Side;
-};
-
-FRollInput GetRollInput(FString RollInput)
-{
-	TArray<FString> DiceAndSide;
-	RollInput.ParseIntoArray(DiceAndSide, TEXT("d"), true);
-	if (DiceAndSide.Num() != 2)
-	{
-		HandleInvalidRollInput(RollInput);
-	}
-	int DiceQty = FCString::Atoi(*DiceAndSide[0]);
-	int SideQty = FCString::Atoi(*DiceAndSide[1]);
-	if (IsInvalidDiceCount(DiceQty) || IsInvalidSideCount(SideQty))
-	{
-		HandleInvalidRollInput(RollInput);
-	}
-	return FRollInput{
-		DiceQty,
-		SideQty
-	};
-}
-
-int Roll(const FString Input)
-{
-	const auto [Dice, Side] = GetRollInput(Input);
+	RawInput = Input;
+	SetRollInput();
 	int RollAmount = 0;
-	for (int i = 0; i < Dice; ++i)
+	for (int i = 0; i < RollInput.Dice; ++i)
 	{
-		RollAmount += RandomNonZeroNumber(Side);
+		RollAmount += GetRandomDiceSide();
 	}
 	return RollAmount;
+}
+
+bool Dice::IsInvalidDiceCount() const
+{
+	return RollInput.Dice <= 0;
+}
+
+bool Dice::IsInvalidSideCount() const
+{
+	return RollInput.Side <= 0;
+}
+
+void Dice::HandleInvalidRollInput() const
+{
+	throw FString("Roll " + RawInput + " is not valid.");
+}
+
+int Dice::GetRandomDiceSide() const
+{
+	srand(time(NULL));
+	return rand() % RollInput.Side + 1;
+}
+
+void Dice::SetRollInput()
+{
+	TArray<FString> DiceAndSide;
+	RawInput.ParseIntoArray(DiceAndSide, TEXT("d"), true);
+	if (DiceAndSide.Num() != 2)
+	{
+		HandleInvalidRollInput();
+	}
+	RollInput = FRollInput{
+		FCString::Atoi(*DiceAndSide[0]),
+		FCString::Atoi(*DiceAndSide[1])
+	};
+	if (IsInvalidDiceCount() || IsInvalidSideCount())
+	{
+		HandleInvalidRollInput();
+	}
 }
