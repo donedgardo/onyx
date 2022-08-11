@@ -10,4 +10,4 @@
   - [ ] Skills/Abilities
 
 - [ ] As a player I want to roll dice to be able to create my character.
-- [ ] As a game system I want a dice system to be able to roll and randomize outcomes of the game.
+- [x] As a game system I want a dice system to be able to roll and randomize outcomes of the game.

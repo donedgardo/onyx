@@ -1,4 +1,4 @@
-#include <Onyx/Dice.h>
+#include <Onyx/Dice/Dice.h>
 
 DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 

@@ -1,5 +1,6 @@
 #include "Dice.h"
 
+
 int Dice::Roll(const FString Input)
 {
 	RawInput = Input;
