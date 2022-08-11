@@ -124,4 +124,22 @@ void DiceSpec::Define()
 			}
 		});
 	});
+	Describe("RollWithAdvantage", [this]()
+	{
+		It("rolls twice", [this]()
+		{
+			Dice d = Dice(20);
+			FRollManyOutput r = d.RollWithAdvantage();
+			TestTrue("Rolls", r.Rolls.Num() == 2);
+		});
+		It("picks the better of two rolls", [this]()
+		{
+			Dice d = Dice(20);
+			FRollManyOutput r = d.RollWithAdvantage();
+			for (auto Roll : r.Rolls)
+			{
+				TestTrue("Max", r.Result >= Roll);
+			}
+		});
+	});
 }
