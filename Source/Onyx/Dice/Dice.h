@@ -19,6 +19,7 @@ public:
 	Dice(int SideQty);
 	int Roll() const;
 	FRollManyOutput RollWithAdvantage() const;
+	FRollManyOutput RollWithDisadvantage() const;
 	static FRollManyOutput RollMany(const FString RawInput);
 private:
 	int Sides;

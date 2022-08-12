@@ -22,6 +22,16 @@ FRollManyOutput Dice::RollWithAdvantage() const
 	};
 }
 
+FRollManyOutput Dice::RollWithDisadvantage() const
+{
+	TArray<int> Rolls = RollTwice();
+	Rolls.Sort();
+	return FRollManyOutput{
+		Rolls,
+		Rolls[0]
+	};
+}
+
 FRollManyOutput Dice::RollMany(const FString RawInput)
 {
 	const FRollManyInput RollManyInput = GetRollManyInput(RawInput);

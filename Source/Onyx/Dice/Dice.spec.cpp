@@ -58,11 +58,11 @@ void DiceSpec::Define()
 				10,
 				100
 			});
-			for (auto RollTestCase : RollRangeTestCases)
+			for (const auto [Input, Min, Max] : RollRangeTestCases)
 			{
-				const auto [Rolls, Result] = Dice::RollMany(RollTestCase.Input);
-				TestTrue("Min", Result >= RollTestCase.Min);
-				TestTrue("Max", Result <= RollTestCase.Max);
+				const auto [Rolls, Result] = Dice::RollMany(Input);
+				TestTrue("Min", Result >= Min);
+				TestTrue("Max", Result <= Max);
 			}
 		});
 	});
@@ -132,14 +132,33 @@ void DiceSpec::Define()
 			FRollManyOutput r = d.RollWithAdvantage();
 			TestTrue("Rolls", r.Rolls.Num() == 2);
 		});
-		It("picks the better of two rolls", [this]()
+		It("picks the higher of two rolls", [this]()
 		{
 			Dice d = Dice(20);
 			FRollManyOutput r = d.RollWithAdvantage();
-			for (auto Roll : r.Rolls)
+			for (const auto Roll : r.Rolls)
 			{
 				TestTrue("Max", r.Result >= Roll);
 			}
 		});
 	});
+	Describe("RollWithDisadvantage", [this]()
+	{
+		It("rolls twice", [this]()
+		{
+			const Dice d = Dice(20);
+			const FRollManyOutput r = d.RollWithDisadvantage();
+			TestTrue("Rolls", r.Rolls.Num() == 2);
+		});
+		It("picks the lower of two rolls", [this]()
+		{
+			Dice d = Dice(20);
+			FRollManyOutput r = d.RollWithDisadvantage();
+			for (const auto Roll : r.Rolls)
+			{
+				TestTrue("Min", r.Result <= Roll);
+			}
+		});
+	});
+
 }
