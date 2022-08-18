@@ -10,7 +10,7 @@ struct FRollManyOutput
 {
 	TArray<int> Rolls;
 	int Result;
-	
+	FString Error;
 };
 
 class Dice
@@ -23,10 +23,8 @@ public:
 	static FRollManyOutput RollMany(const FString RawInput);
 private:
 	int Sides;
-	static FRollManyOutput GetRollManyOutput(FRollManyInput RollManyInput);
-	static FRollManyInput GetRollManyInput(FString RawInput);
 	static bool IsInvalidRollInput(FRollManyInput RollInput);
-	static void HandleInvalidRollInput(FString RawInput);
+	static FString GetErrorMessage(FString RawInput);
 	TArray<int> RollTwice() const;
 };
 

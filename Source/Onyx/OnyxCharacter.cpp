@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "OnyxCharacter.h"
+
+#include <Onyx/Dice/Dice.h>
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -49,6 +51,8 @@ AOnyxCharacter::AOnyxCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -60,6 +64,9 @@ void AOnyxCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
+	
+	PlayerInputComponent->BindAction("ActionBar 1", IE_Pressed, this, &AOnyxCharacter::ActionBar1);
 
 	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &AOnyxCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &AOnyxCharacter::MoveRight);
@@ -75,6 +82,13 @@ void AOnyxCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	// handle touch devices
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &AOnyxCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &AOnyxCharacter::TouchStopped);
+
+}
+
+void AOnyxCharacter::ActionBar1()
+{
+	FRollManyOutput Roll = Dice::RollMany("1d20");
+	UE_LOG(LogTemp, Warning, TEXT("Dice roll %d"), Roll.Result);
 }
 
 void AOnyxCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

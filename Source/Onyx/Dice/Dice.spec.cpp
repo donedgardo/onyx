@@ -1,7 +1,5 @@
 #include <Onyx/Dice/Dice.h>
 
-DEFINE_SPEC(DiceSpec, "Onyx.Dice", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
-
 struct FRollManyRangeTestCase
 {
 	FString Input;
@@ -16,7 +14,8 @@ struct FRollRangeTestCase
 	int Max;
 };
 
-void DiceSpec::Define()
+DEFINE_SPEC(FDiceSpec, "Onxy.Dice", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+void FDiceSpec::Define()
 {
 	Describe("RollMany", [this]()
 	{
@@ -60,7 +59,7 @@ void DiceSpec::Define()
 			});
 			for (const auto [Input, Min, Max] : RollRangeTestCases)
 			{
-				const auto [Rolls, Result] = Dice::RollMany(Input);
+				const auto [Rolls, Result, Error] = Dice::RollMany(Input);
 				TestTrue("Min", Result >= Min);
 				TestTrue("Max", Result <= Max);
 			}
@@ -81,16 +80,9 @@ void DiceSpec::Define()
 			InvalidInputs.Emplace("1d-10");
 			for (const auto& InvalidInput : InvalidInputs)
 			{
-				try
-				{
-					Dice::RollMany(InvalidInput);
-					TestTrue("Should throw exception", false);
-				}
-				catch (FString error)
-				{
-					FString expectedError = "Roll " + InvalidInput + " is not valid.";
-					TestEqual("Expected Error", error, expectedError);
-				}
+				FRollManyOutput result = Dice::RollMany(InvalidInput);
+				FString expectedError = "Roll " + InvalidInput + " is not valid.";
+				TestEqual("Expected Error", result.Error, expectedError);
 			}
 		});
 	});
@@ -160,5 +152,4 @@ void DiceSpec::Define()
 			}
 		});
 	});
-
 }
